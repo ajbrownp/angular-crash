@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/models/Todo';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -7,15 +8,18 @@ import { Todo } from 'src/app/models/Todo';
   styleUrls: ['./todo-item.component.css']
 })
 export class TodoItemComponent implements OnInit {
+  //when taking in some data from parent component
   @Input() todo: Todo;
+  //wehn sending some info to parent component
+  @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
   
-  constructor() { }
+  constructor( private todoService:TodoService ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
 
-    //set dynamic classes
+    }
 
+  //set dynamic classes
     setClasses() {
       let classes = {
         todo: true,
@@ -23,15 +27,18 @@ export class TodoItemComponent implements OnInit {
       }
       return classes;
     }
-
-    onToggle(todo) {
-      console.log('toggle');
-      todo.completed = !todo.completed;
       
+    //on toggle
+    onToggle(todo) {
+      // toggle in UI
+      todo.completed = !todo.completed;
+      //toggle on Server
+      this.todoService.toggleCompleted(todo).subscribe( todo => 
+        console.log('todo from todo.item.component', todo));
     }
 
+    //delete todo
     onDelete(todo) {
-      console.log('delete');
-      
+      this.deleteTodo.emit(todo);      
     }
 }

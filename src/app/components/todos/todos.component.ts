@@ -21,31 +21,14 @@ export class TodosComponent implements OnInit {
 
     this.todoService.getTodos().subscribe( todos => {
       this.todos = todos;
-    }); 
-    
-    //initilize todo's with some data
-    // this.todos = [
-    //   {
-    //     id:1,
-    //     title:'Todo one',
-    //     completed: false
-    //   },
-    //   {
-    //     id:2,
-    //     title:'Todo two',
-    //     completed: false
-    //   },
-    //   {
-    //     id:3,
-    //     title:'Todo three',
-    //     completed: true
-    //   },
-    //   {
-    //     id:4,
-    //     title:'Todo four',
-    //     completed: true
-    //   }
-    // ]
+    });    
+  }
+
+  deleteTodoFormTodoComponent(todo:Todo){
+    //update todos array, filter the todos array and eliminate the todo that matches the todo.id that is getting passed as attr. This delete from the UI
+    this.todos = this.todos.filter(t => t.id !== todo.id);
+    //to eliminate from the server
+    this.todoService.deleteTodo(todo).subscribe();
   }
 
 }

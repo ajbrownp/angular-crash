@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { Todo } from '../models/Todo';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'aplication/json'
+  }) 
+
+}
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +45,19 @@ export class TodoService {
     //     completed: true
     //   }
     // ]
+  }
+
+  // Toggle completed
+  toggleCompleted(todo: Todo):Observable<any> {
+    const url = `${this.todosUrl}/${todo.id}`;
+    console.log('todo from todo.service', todo);
+    return this.http.put(url, todo, httpOptions);
+  }
+
+  //Delete todo
+  deleteTodo(todo: Todo):Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`;
+    return this.http.delete<Todo>(url, httpOptions);
   }
   
 }
