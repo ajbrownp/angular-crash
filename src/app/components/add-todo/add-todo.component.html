@@ -1,0 +1,7 @@
+<form class="form" (ngSubmit)="onSubmit()">
+    <!-- we use ngModel, a two way data bidding to match title property created in the add-todo component -->
+  <input type="text" name="title" [(ngModel)]="title" placeholder ="Add Todo...">  
+
+  <input type="submit" value="Submit" class="btn">
+</form>
+

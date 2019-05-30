@@ -1,8 +1,5 @@
-<h1>Todos</h1>
-<!-- <ul *ngFor = "let todo of todos">
-  <li> {{ todo.title }}</li>
-</ul> -->
 
+<app-add-todo (addTodo)="addTodoFromTodoComponent($event)"></app-add-todo>
 <app-todo-item 
   *ngFor = "let todo of todos" 
   [todo] = "todo"
