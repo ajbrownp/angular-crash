@@ -7,10 +7,10 @@ import { Todo } from 'src/app/models/Todo';
   styleUrls: ['./add-todo.component.css']
 })
 export class AddTodoComponent implements OnInit {
+  @Output() addTodo: EventEmitter<any> = new EventEmitter();
+
    //create the form
    title:string;
-
-  @Output() addTodo: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
